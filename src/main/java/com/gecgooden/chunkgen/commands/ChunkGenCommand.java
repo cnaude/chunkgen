@@ -10,7 +10,6 @@ import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
 
 public class ChunkGenCommand extends CommandBase {
@@ -22,16 +21,6 @@ public class ChunkGenCommand extends CommandBase {
 
     public ChunkGenCommand() {
 
-    }
-
-    @Override
-    public String getCommandName() {
-        return "chunkgen";
-    }
-
-    @Override
-    public String getCommandUsage(ICommandSender icommandsender) {
-        return "commands.chunkgen.usage";
     }
 
     @Override
@@ -79,13 +68,12 @@ public class ChunkGenCommand extends CommandBase {
                     break;
                 case SUB_CMD_STOP:
                     Reference.toGenerate.clear();
-                    icommandsender.addChatMessage(new TextComponentTranslation("commands.chunkgen.stopped"));
+                    icommandsender.sendMessage(new TextComponentTranslation("commands.chunkgen.stopped"));
                     break;
             }
         }
     }
 
-    @Override
     public List<String> getTabCompletionOptions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos pos) {
         switch (args.length) {
             case 1:
@@ -130,6 +118,16 @@ public class ChunkGenCommand extends CommandBase {
                 }
         }
         return null;
+    }
+
+    @Override
+    public String getName() {
+        return "chunkgen";
+    }
+
+    @Override
+    public String getUsage(ICommandSender sender) {
+        return "commands.chunkgen.usage";
     }
 
 }
